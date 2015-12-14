@@ -8,6 +8,7 @@ public class ConnexionDB {
 	private Statement st;
 	private ResultSet rs;
 	private Connection cn;
+	private PreparedStatement ps;
 	
 	private String num = null, nom = null, prenom = null;
 	private int age = -1;
@@ -23,6 +24,8 @@ public class ConnexionDB {
 			cn = DriverManager.getConnection(url, login, mdp);
 			st = cn.createStatement(ResultSet.TYPE_SCROLL_SENSITIVE, ResultSet.CONCUR_READ_ONLY);
 			rs = st.executeQuery("SELECT * FROM Personnes ORDER BY agePersonne DESC NULLS LAST");
+			
+			ps = cn.prepareStatement("SELECT * FROM Personnes WHERE agePersonne > ? ORDER BY agePersonne DESC NULLS LAST");
 		}
 		catch (SQLException e) 
 		{
@@ -36,86 +39,41 @@ public class ConnexionDB {
 		}
 	}
 	
-	public Personne premier()
+	public Personne actionBouton(String performedButton)
 	{
-		try {
-			rs.first();
-			num = rs.getString(1);
-			nom =  rs.getString(2);
-			prenom = rs.getString(3);
-			age = rs.getInt(4);
-			if(rs.wasNull())
+		try 
+		{
+			switch(performedButton)
 			{
-				age = -1;
-			}
-		} catch (SQLException e) {
-			e.printStackTrace();
-		}
-		
-		Personne result = new Personne(num, nom, prenom, age);
-		
-		return result;
-	}
-	
-	public Personne dernier()
-	{
-		try {
-			rs.last();
-			num = rs.getString(1);
-			nom =  rs.getString(2);
-			prenom = rs.getString(3);
-			age = rs.getInt(4);
-			if(rs.wasNull())
-			{
-				age = -1;
-			}
-		} catch (SQLException e) {
-			e.printStackTrace();
-		}
-		
-		Personne result = new Personne(num, nom, prenom, age);
-		
-		return result;
-	}
-	
-	public Personne suivant()
-	{
-		try {
-			if(rs.isLast())
-			{
-				rs.last();
-			}
-			else
-			{
-				rs.next();
-			}
-			num = rs.getString(1);
-			nom =  rs.getString(2);
-			prenom = rs.getString(3);
-			age = rs.getInt(4);
-			if(rs.wasNull())
-			{
-				age = -1;
-			}
-		} catch (SQLException e) {
-			e.printStackTrace();
-		}
-		
-		Personne result = new Personne(num, nom, prenom, age);
-		
-		return result;
-	}
-	
-	public Personne precedent()
-	{
-		try {
-			if(rs.isFirst())
-			{
+			case "p" :
 				rs.first();
-			}
-			else
-			{
-				rs.previous();
+			break;
+			case "d" :
+				rs.last();
+			break;
+			case "s" :
+				if(rs.isLast())
+				{
+					rs.last();
+				}
+				else
+				{
+					rs.next();
+				}
+			break;
+			case "b" :
+				if(rs.isFirst())
+				{
+					rs.first();
+				}
+				else
+				{
+					rs.previous();
+				}
+			break;
+			default:
+				rs.first();
+				break;
 			}
 			num = rs.getString(1);
 			nom =  rs.getString(2);

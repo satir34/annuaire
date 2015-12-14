@@ -90,7 +90,7 @@ public class Fenetre extends JFrame implements ActionListener, WindowListener {
 		btSupprimer = new JButton("Supprimer");
 		panModification.add(btSupprimer);
 
-		// contentPane.add(panRecherche,"North");
+		contentPane.add(panRecherche,"North");
 		contentPane.add(panAffichage);
 		// contentPane.add(panModification,"South");
 		pack();
@@ -110,23 +110,24 @@ public class Fenetre extends JFrame implements ActionListener, WindowListener {
 		setVisible(true);
 		
 		maConnexionBD = new ConnexionDB();
-		afficher(maConnexionBD.premier());
+		afficher(maConnexionBD.actionBouton("p"));
 	}
 
 	public void actionPerformed(ActionEvent e) {
 		if (e.getSource() == btPrec)
-			afficher(maConnexionBD.precedent());
+			afficher(maConnexionBD.actionBouton("b"));
 		if (e.getSource() == btPrem)
-			afficher(maConnexionBD.premier());
+			afficher(maConnexionBD.actionBouton("p"));
 		if (e.getSource() == btSuiv)
-			afficher(maConnexionBD.suivant());
+			afficher(maConnexionBD.actionBouton("s"));
 		if (e.getSource() == btDer)
-			afficher(maConnexionBD.dernier());
+			afficher(maConnexionBD.actionBouton("d"));
 
-		// if (e.getSource() == btRecherche)
-		// System.out.println("rechercher");
-		// if (e.getSource() == btTous)
-		// System.out.println("tous");
+		 if (e.getSource() == btRecherche)
+			 System.out.println("rechercher");
+		 	
+		 if (e.getSource() == btTous)
+		 System.out.println("tous");
 
 		// if (e.getSource() == btVider)
 		// System.out.println("vider");
@@ -139,7 +140,6 @@ public class Fenetre extends JFrame implements ActionListener, WindowListener {
 	}
 
 	public void windowClosing(WindowEvent arg0) {
-		System.out.println("Au revoir !");
 		System.exit(0);
 	}
 
