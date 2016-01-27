@@ -10,7 +10,7 @@ import java.util.Map.Entry;
 import javax.swing.DefaultListModel;
 
 public class Model extends DefaultListModel {
-	private static Properties contacts = new Properties();
+	private Properties contacts = new Properties();
 	
 	public Model()
 	{
@@ -30,12 +30,17 @@ public class Model extends DefaultListModel {
 		
 		for(Entry<Object, Object> o : contacts.entrySet())
 		{
-			addElement((String) o.getKey());
+			this.addElement((String) o.getKey());
 		}
 	}
 	
-	public static Properties getContacts()
+	public Properties getContacts()
 	{
 		return contacts;
+	}
+	
+	public void setContacts(Properties newContact)
+	{
+		
 	}
 }

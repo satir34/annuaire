@@ -4,18 +4,8 @@
 package annuaire;
 
 import java.awt.BorderLayout;
-import java.awt.Component;
-import java.awt.FlowLayout;
-import java.io.FileInputStream;
-import java.io.FileNotFoundException;
-import java.io.IOException;
-import java.io.InputStream;
-import java.util.HashMap;
-import java.util.Hashtable;
-import java.util.Map.Entry;
 import java.util.Properties;
 
-import javax.swing.DefaultListModel;
 import javax.swing.JFrame;
 import javax.swing.JList;
 import javax.swing.JMenu;
@@ -24,11 +14,6 @@ import javax.swing.JMenuItem;
 import javax.swing.JPanel;
 import javax.swing.JScrollPane;
 import javax.swing.JTextPane;
-import javax.swing.ListModel;
-import javax.swing.event.CaretEvent;
-import javax.swing.event.CaretListener;
-import javax.swing.event.ListSelectionEvent;
-import javax.swing.event.ListSelectionListener;
 
 /**
  * @author ronsinl
@@ -38,14 +23,12 @@ public class AddressBook extends JFrame{
 
 	private Properties contacts = new Properties();
 	private JList list;
-	private DefaultListModel listModel;
+	private Model listModel;
 	private static JFrame frame = new JFrame("Annuaire Telephonique");
 	
 	public AddressBook()
 	{
 		listModel = new Model();
-		
-		System.out.println(listModel);
 
 		list = new JList(listModel);
 		
@@ -54,10 +37,10 @@ public class AddressBook extends JFrame{
 		JPanel panel = new JPanel();
 		panel.setLayout(new BorderLayout());
 		
-		SelectionListener hireListener = new SelectionListener(list, textPane);
+		SelectionListener hireListener = new SelectionListener(list, textPane, listModel);
 		list.addListSelectionListener(hireListener);
 		
-		TextFieldListener changedTextListener = new TextFieldListener(list, textPane);
+		TextFieldListener changedTextListener = new TextFieldListener(list, textPane, listModel);
 		textPane.addCaretListener(changedTextListener);
 		
 		JScrollPane scroll = new JScrollPane(list);
@@ -77,7 +60,7 @@ public class AddressBook extends JFrame{
 		
 		JMenuItem addEntry = new JMenuItem("Ajouter une entrée");
 		
-		AddEntryListener addNewGuy = new AddEntryListener();
+		AddEntryListener addNewGuy = new AddEntryListener(listModel);
 		addEntry.addActionListener(addNewGuy);
 		
 		menuEdit.add(addEntry);

@@ -2,6 +2,7 @@ package annuaire;
 
 import java.util.Properties;
 
+import javax.swing.DefaultListModel;
 import javax.swing.JList;
 import javax.swing.JTextPane;
 import javax.swing.event.CaretEvent;
@@ -13,11 +14,11 @@ public class TextFieldListener implements CaretListener {
 	private JTextPane textPane = new JTextPane();
 	private Properties contacts;
 	
-	public TextFieldListener(JList<String> list, JTextPane textPane)
+	public TextFieldListener(JList<String> list, JTextPane textPane, Model currentListModel)
 	{
 		this.list = list;
 		this.textPane = textPane;
-		this.contacts = Model.getContacts();
+		this.contacts = currentListModel.getContacts();
 	}
 
 	public void caretUpdate(CaretEvent arg0) {

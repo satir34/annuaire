@@ -1,6 +1,7 @@
 package annuaire;
 import java.util.Properties;
 
+import javax.swing.DefaultListModel;
 import javax.swing.JList;
 import javax.swing.JTextPane;
 import javax.swing.event.ListSelectionEvent;
@@ -12,11 +13,11 @@ public class SelectionListener implements ListSelectionListener {
 	private JTextPane textPane = new JTextPane();
 	private Properties contacts;
 	
-	public SelectionListener(JList<String> list, JTextPane textPane)
+	public SelectionListener(JList<String> list, JTextPane textPane, Model currentListModel)
 	{
 		this.list = list;
 		this.textPane = textPane;
-		this.contacts = Model.getContacts();
+		this.contacts = currentListModel.getContacts();
 	}
 	
 	public void valueChanged(ListSelectionEvent e) {
