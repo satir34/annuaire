@@ -15,13 +15,35 @@ import javax.swing.JOptionPane;
 import javax.swing.JTextPane;
 
 public class AddEntryListener implements ActionListener {
-	
+	/**
+	 * Booleen qui verifira que le nom du contact est déjà ajouter lors de l'event
+	 */
 	private boolean cleAjoutee = false;
-	private String newKey,newValue, newEntry;
+	/**
+	 * La nouvelle clé à ajouter au fichier properties
+	 */
+	private String newKey;
+	/** 
+	 * La nouvelle valeur associé à la clé newKey à ajouter au fichier properties
+	 */
+	private String newValue;
+	/**
+	 * La liste des contacts courante en properties
+	 */
 	private Properties contacts;
+	/**
+	 * La localisation du fichier properties
+	 */
 	private String propertiesFielLocation = "myProperties.properties";
+	/**
+	 * listModel pour la structure MVC
+	 */
 	private Model newModel;
 	
+	/**
+	 * Listener de l'event sur le menu d'ajout d'une entrée au fichier properties
+	 * @param currentListModel la listModel à modifier
+	 */
 	public AddEntryListener(Model currentListModel)
 	{
 		this.contacts = currentListModel.getContacts();
@@ -55,8 +77,7 @@ public class AddEntryListener implements ActionListener {
 		catch(IOException e1) {
 			e1.printStackTrace();
 		}
-		newEntry = newKey;
-		if(!newModel.contains(newEntry))
-			newModel.addElement(newEntry);
+		if(!newModel.contains(newKey))
+			newModel.addElement(newKey);
 	}
 }
